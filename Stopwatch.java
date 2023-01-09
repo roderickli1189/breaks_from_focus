@@ -8,9 +8,10 @@ public class Stopwatch implements ActionListener {
     JButton startButton = new JButton("START");
     JButton resetButton = new JButton("RESET");
     JLabel timeLabel = new JLabel();
-    int elapsedTime = 0;
+    int userTime = 60000;
+    int elapsedTime = 60000;
     int seconds = 0;
-    int minutes = 0;
+    int minutes = 1;
     int hours = 0;
     boolean started = false;
     String secondString = String.format("%02d", seconds);
@@ -19,7 +20,8 @@ public class Stopwatch implements ActionListener {
 
     Timer timer = new Timer(1000, new ActionListener(){
         public void actionPerformed(ActionEvent e){
-            elapsedTime = elapsedTime+ 1000;
+            
+            elapsedTime = elapsedTime - 1000;
             hours = (elapsedTime/3600000);
             minutes = (elapsedTime/60000) % 60;
             seconds = (elapsedTime/1000) % 60;
@@ -90,7 +92,7 @@ public class Stopwatch implements ActionListener {
 
     void reset(){
         timer.stop();
-        elapsedTime = 0;
+        elapsedTime = userTime;
         hours = 0;
         minutes = 0;
         seconds = 0;
