@@ -62,7 +62,12 @@ public class Stopwatch implements ActionListener, ChangeListener {
         minSlider.setMinorTickSpacing(5);
         minSlider.setPaintTrack(true);
         minSlider.setMajorTickSpacing(15);
-        hourSlider.setPaintLabels(true);
+        minSlider.setPaintLabels(true);
+        minSlider.setFont(new Font("MV Boli", Font.PLAIN, 15));
+        minSliderLabel.setText("number of min: " + minSlider.getValue());
+        minSliderLabel.setBounds(15,250,300,30);
+        minSliderLabel.setFont(new Font("Verdana", Font.PLAIN, 15));
+        minSlider.addChangeListener(this);
         
         //secSlider.setPreferredSize(new Dimension(400, 200));
         secSlider.setBounds(15, 380, 380, 50);
@@ -145,6 +150,7 @@ public class Stopwatch implements ActionListener, ChangeListener {
     public void stateChanged(ChangeEvent e) {
         // TODO Auto-generated method stub
         hourSliderLabel.setText("number of hours: " + hourSlider.getValue());
+        minSliderLabel.setText("number of min: " + minSlider.getValue());
     }
 
     
