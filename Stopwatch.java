@@ -45,22 +45,27 @@ public class Stopwatch implements ActionListener, ChangeListener {
     Stopwatch(){
 
         //hourSlider.setPreferredSize(new Dimension(400, 200));
-        hourSlider.setBounds(15, 200, 380, 50);
+        hourSlider.setBounds(15, 180, 380, 50);
+        hourSlider.setPaintTicks(true);
         hourSlider.setPaintTrack(true);
         hourSlider.setMajorTickSpacing(1);
         hourSlider.setPaintLabels(true);
         hourSlider.setFont(new Font("MV Boli", Font.PLAIN, 15));
         hourSliderLabel.setText("number of hours: " + hourSlider.getValue());
-        hourSliderLabel.setBounds(15,170,300,10);
+        hourSliderLabel.setBounds(15,150,300,30);
         hourSliderLabel.setFont(new Font("Verdana", Font.PLAIN, 15));
-        timeLabel.setOpaque(true);
-        timeLabel.setHorizontalAlignment(JTextField.CENTER);
+        hourSlider.addChangeListener(this);
 
         //minSlider.setPreferredSize(new Dimension(400, 200));
-        minSlider.setBounds(15, 250, 380, 50);
+        minSlider.setBounds(15, 280, 380, 50);
+        minSlider.setPaintTicks(true);
+        minSlider.setMinorTickSpacing(5);
+        minSlider.setPaintTrack(true);
+        minSlider.setMajorTickSpacing(15);
+        hourSlider.setPaintLabels(true);
         
         //secSlider.setPreferredSize(new Dimension(400, 200));
-        secSlider.setBounds(15, 300, 380, 50);
+        secSlider.setBounds(15, 380, 380, 50);
     
         timeLabel.setText(hourString + ":" + minutesString + ":" + secondString);
         timeLabel.setBounds(100,0,200,100);
@@ -139,7 +144,7 @@ public class Stopwatch implements ActionListener, ChangeListener {
     @Override
     public void stateChanged(ChangeEvent e) {
         // TODO Auto-generated method stub
-        
+        hourSliderLabel.setText("number of hours: " + hourSlider.getValue());
     }
 
     
