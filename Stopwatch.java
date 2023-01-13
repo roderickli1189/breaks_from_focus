@@ -44,7 +44,6 @@ public class Stopwatch implements ActionListener, ChangeListener {
 
     Stopwatch(){
 
-        //hourSlider.setPreferredSize(new Dimension(400, 200));
         hourSlider.setBounds(15, 180, 380, 50);
         hourSlider.setPaintTicks(true);
         hourSlider.setPaintTrack(true);
@@ -56,21 +55,29 @@ public class Stopwatch implements ActionListener, ChangeListener {
         hourSliderLabel.setFont(new Font("Verdana", Font.PLAIN, 15));
         hourSlider.addChangeListener(this);
 
-        //minSlider.setPreferredSize(new Dimension(400, 200));
-        minSlider.setBounds(15, 280, 380, 50);
+        minSlider.setBounds(15, 250, 380, 50);
         minSlider.setPaintTicks(true);
         minSlider.setMinorTickSpacing(5);
         minSlider.setPaintTrack(true);
         minSlider.setMajorTickSpacing(15);
         minSlider.setPaintLabels(true);
         minSlider.setFont(new Font("MV Boli", Font.PLAIN, 15));
-        minSliderLabel.setText("number of min: " + minSlider.getValue());
-        minSliderLabel.setBounds(15,250,300,30);
+        minSliderLabel.setText("number of minutes: " + minSlider.getValue());
+        minSliderLabel.setBounds(15,220,300,30);
         minSliderLabel.setFont(new Font("Verdana", Font.PLAIN, 15));
         minSlider.addChangeListener(this);
         
-        //secSlider.setPreferredSize(new Dimension(400, 200));
-        secSlider.setBounds(15, 380, 380, 50);
+        secSlider.setBounds(15, 320, 380, 50);
+        secSlider.setPaintTicks(true);
+        secSlider.setMinorTickSpacing(5);
+        secSlider.setPaintTrack(true);
+        secSlider.setMajorTickSpacing(15);
+        secSlider.setPaintLabels(true);
+        secSlider.setFont(new Font("MV Boli", Font.PLAIN, 15));
+        secSliderLabel.setText("number of seconds: " + minSlider.getValue());
+        secSliderLabel.setBounds(15,290,300,30);
+        secSliderLabel.setFont(new Font("Verdana", Font.PLAIN, 15));
+        secSlider.addChangeListener(this);
     
         timeLabel.setText(hourString + ":" + minutesString + ":" + secondString);
         timeLabel.setBounds(100,0,200,100);
@@ -89,6 +96,11 @@ public class Stopwatch implements ActionListener, ChangeListener {
         resetButton.setFocusable(false);
         resetButton.addActionListener(this);
 
+        updateButton.setBounds(140, 380, 120, 50);
+        updateButton.setFont(new Font("Ink Free", Font.PLAIN, 20));
+        updateButton.setFocusable(false);
+        updateButton.addActionListener(this);
+
         frame.add(hourSliderLabel);
         frame.add(minSliderLabel);
         frame.add(secSliderLabel);
@@ -97,9 +109,10 @@ public class Stopwatch implements ActionListener, ChangeListener {
         frame.add(secSlider);
         frame.add(startButton);
         frame.add(resetButton);
+        frame.add(updateButton);
         frame.add(timeLabel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(420, 420);
+        frame.setSize(420, 460);
         frame.setLayout(null);
         frame.setVisible(true);
     }
@@ -122,6 +135,21 @@ public class Stopwatch implements ActionListener, ChangeListener {
             started = false;
             startButton.setText("START");
             reset();
+        }
+        if (e.getSource() == updateButton){
+            int numHours = hourSlider.getValue();
+            int numMin = minSlider.getValue();
+            int numSec = secSlider.getValue();
+
+            elapsedTime = numHours * 3600000 + numMin * 60000 + numSec * 1000;
+            userTime = elapsedTime;
+            hours = (elapsedTime/3600000);
+            minutes = (elapsedTime/60000) % 60;
+            seconds = (elapsedTime/1000) % 60;
+            secondString = String.format("%02d", seconds);
+            minutesString = String.format("%02d", minutes);
+            hourString = String.format("%02d", hours);
+            timeLabel.setText(hourString + ":" + minutesString + ":" + secondString);
         }
         
     }
@@ -150,8 +178,8 @@ public class Stopwatch implements ActionListener, ChangeListener {
     public void stateChanged(ChangeEvent e) {
         // TODO Auto-generated method stub
         hourSliderLabel.setText("number of hours: " + hourSlider.getValue());
-        minSliderLabel.setText("number of min: " + minSlider.getValue());
+        minSliderLabel.setText("number of minutes: " + minSlider.getValue());
+        secSliderLabel.setText("number of seconds: " + secSlider.getValue());
     }
-
     
 }
